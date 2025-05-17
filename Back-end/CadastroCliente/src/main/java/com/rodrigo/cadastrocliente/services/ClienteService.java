@@ -1,6 +1,7 @@
 package com.rodrigo.cadastrocliente.services;
 
 import com.rodrigo.cadastrocliente.models.Cliente;
+import com.rodrigo.cadastrocliente.models.Telefone;
 import com.rodrigo.cadastrocliente.repositories.ClienteRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class ClienteService {
     }
 
     public Cliente cadastrarCliente(@Valid Cliente cliente){
+        for (Telefone tel : cliente.getTelefones()) {
+            tel.setCliente(cliente); // <- isso é essencial
+        }
         return clienteRepository.save(cliente);
     }
 }
