@@ -41,4 +41,9 @@ public class Cliente {
     @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
     private List<Email> emails = new ArrayList<>();
+
+    @NotEmpty
+    @Valid
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
+    private List<Endereco> enderecos = new ArrayList<>();
 }
