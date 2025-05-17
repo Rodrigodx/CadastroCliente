@@ -19,7 +19,7 @@ public class EmailRequestDTO {
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
-    
+
     @Valid
     private Cliente cliente;
 
