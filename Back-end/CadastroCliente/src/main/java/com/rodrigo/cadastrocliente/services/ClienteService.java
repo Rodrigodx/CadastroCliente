@@ -2,6 +2,7 @@ package com.rodrigo.cadastrocliente.services;
 
 import com.rodrigo.cadastrocliente.models.Cliente;
 import com.rodrigo.cadastrocliente.models.Email;
+import com.rodrigo.cadastrocliente.models.Endereco;
 import com.rodrigo.cadastrocliente.models.Telefone;
 import com.rodrigo.cadastrocliente.repositories.ClienteRepository;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ public class ClienteService {
 
         for (Email email : cliente.getEmails()) {
             email.setCliente(cliente);
+        }
+
+        for(Endereco endereco : cliente.getEnderecos()) {
+            endereco.setCliente(cliente);
         }
         return clienteRepository.save(cliente);
     }
