@@ -22,7 +22,7 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private int id;
+    private Integer id;
 
     @Length(min = 3, max = 100)
     @NotBlank
@@ -36,4 +36,9 @@ public class Cliente {
     @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
     private List<Telefone> telefones = new ArrayList<>();
+
+    @NotEmpty
+    @Valid
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "cliente")
+    private List<Email> emails = new ArrayList<>();
 }
