@@ -2,23 +2,25 @@ package com.rodrigo.cadastrocliente.services;
 
 import com.rodrigo.cadastrocliente.models.Cliente;
 import com.rodrigo.cadastrocliente.repositories.ClienteRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
 public class ClienteService {
 
-    private static ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
+
+    public ClienteService(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
 
     public List<Cliente> buscarTodosClientes(){
         return clienteRepository.findAll();
     }
 
-    public Cliente cadastrarCliente(Cliente cliente){
+    public Cliente cadastrarCliente(@Valid Cliente cliente){
         return clienteRepository.save(cliente);
     }
-
 }
