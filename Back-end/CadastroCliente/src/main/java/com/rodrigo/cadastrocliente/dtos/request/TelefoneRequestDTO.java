@@ -12,8 +12,6 @@ import lombok.Setter;
 @Setter
 public class TelefoneRequestDTO {
 
-    private Integer id;
-
     private String numero;
 
     private Integer tipo;

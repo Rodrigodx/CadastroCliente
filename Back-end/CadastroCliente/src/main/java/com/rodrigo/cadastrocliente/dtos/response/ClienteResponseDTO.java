@@ -28,5 +28,4 @@ public class ClienteResponseDTO {
     private List<EmailRequestDTO> emails = new ArrayList<>();
 
     private List<EnderecoRequestDTO> enderecos = new ArrayList<>();
-
 }
