@@ -1,6 +1,7 @@
 package com.rodrigo.cadastrocliente.dtos.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.rodrigo.cadastrocliente.dtos.ClienteSimpleDTO;
 import com.rodrigo.cadastrocliente.enums.TelefoneEnum;
 import com.rodrigo.cadastrocliente.models.Cliente;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class TelefoneRequestDTO {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "cliente_id", nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Cliente cliente;
+    private ClienteSimpleDTO cliente;
 
     public void setTipo(TelefoneEnum tipo) {
         this.tipo = tipo.cod;

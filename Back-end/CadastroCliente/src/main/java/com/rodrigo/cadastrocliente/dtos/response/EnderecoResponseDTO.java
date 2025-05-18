@@ -1,5 +1,6 @@
 package com.rodrigo.cadastrocliente.dtos.response;
 
+import com.rodrigo.cadastrocliente.dtos.ClienteSimpleDTO;
 import com.rodrigo.cadastrocliente.models.Cliente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,6 @@ public class EnderecoResponseDTO {
 
     private String complemento;
 
-    private Cliente cliente;
+    private ClienteSimpleDTO cliente;
 
 }

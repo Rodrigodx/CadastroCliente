@@ -1,6 +1,7 @@
 package com.rodrigo.cadastrocliente.dtos.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.rodrigo.cadastrocliente.dtos.ClienteSimpleDTO;
 import com.rodrigo.cadastrocliente.models.Cliente;
 import lombok.*;
 
@@ -37,6 +38,6 @@ public class EnderecoRequestDTO {
     @JoinColumn(name = "cliente_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @Valid
-    private Cliente cliente;
+    private ClienteSimpleDTO cliente;
 
 }

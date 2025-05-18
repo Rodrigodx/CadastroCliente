@@ -1,7 +1,7 @@
 package com.rodrigo.cadastrocliente.dtos.response;
 
+import com.rodrigo.cadastrocliente.dtos.ClienteSimpleDTO;
 import com.rodrigo.cadastrocliente.enums.TelefoneEnum;
-import com.rodrigo.cadastrocliente.models.Cliente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ public class TelefoneResponseDTO {
 
     private Integer tipo;
 
-    private Cliente cliente;
+    private ClienteSimpleDTO cliente;
 
     public void setTipo(TelefoneEnum tipo) {
         this.tipo = tipo.cod;
