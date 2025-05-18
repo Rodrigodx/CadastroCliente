@@ -34,10 +34,4 @@ public class EnderecoRequestDTO {
 
     private String complemento;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JoinColumn(name = "cliente_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @Valid
-    private ClienteSimpleDTO cliente;
-
 }

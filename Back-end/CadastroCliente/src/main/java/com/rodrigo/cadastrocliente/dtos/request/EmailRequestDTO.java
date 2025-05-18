@@ -1,6 +1,5 @@
 package com.rodrigo.cadastrocliente.dtos.request;
 
-import com.rodrigo.cadastrocliente.dtos.ClienteSimpleDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +18,4 @@ public class EmailRequestDTO {
     @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
-    private ClienteSimpleDTO cliente;
 }

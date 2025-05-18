@@ -4,6 +4,4 @@ public class ClienteSimpleDTO {
 
     private Integer id;
 
-    private String nome;
-
 }
