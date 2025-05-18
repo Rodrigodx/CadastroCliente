@@ -1,14 +1,7 @@
 package com.rodrigo.cadastrocliente.dtos.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rodrigo.cadastrocliente.dtos.ClienteSimpleDTO;
-import com.rodrigo.cadastrocliente.models.Cliente;
 import lombok.*;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor

@@ -1,6 +1,5 @@
 package com.rodrigo.cadastrocliente.dtos.response;
 
-import com.rodrigo.cadastrocliente.dtos.ClienteSimpleDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
