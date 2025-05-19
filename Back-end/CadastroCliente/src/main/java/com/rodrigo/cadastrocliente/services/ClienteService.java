@@ -1,9 +1,7 @@
 package com.rodrigo.cadastrocliente.services;
 
 import com.rodrigo.cadastrocliente.dtos.request.ClienteRequestDTO;
-import com.rodrigo.cadastrocliente.dtos.request.EnderecoRequestDTO;
 import com.rodrigo.cadastrocliente.dtos.response.ClienteResponseDTO;
-import com.rodrigo.cadastrocliente.dtos.response.EnderecoResponseDTO;
 import com.rodrigo.cadastrocliente.mapper.ClienteMapper;
 import com.rodrigo.cadastrocliente.models.Cliente;
 import com.rodrigo.cadastrocliente.models.Endereco;
@@ -19,24 +17,26 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
     private final ClienteMapper clienteMapper;
-    private final ViaCepService viaCepService;
 
-    public ClienteService(ClienteRepository clienteRepository, ClienteMapper clienteMapper, ViaCepService viaCepService) {
+    public ClienteService(ClienteRepository clienteRepository, ClienteMapper clienteMapper) {
         this.clienteRepository = clienteRepository;
         this.clienteMapper = clienteMapper;
-        this.viaCepService = viaCepService;
     }
 
     public List<ClienteResponseDTO> buscarTodosClientes(){
         return clienteRepository.findAll()
                 .stream()
                 .map(clienteMapper::toDTO)
+                .peek(dto -> dto.setCpf(MaskService.maskCPF(dto.getCpf())))
                 .collect(Collectors.toList());
     }
 
     public ClienteResponseDTO buscarClientePorId(Integer id){
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não encontrado um cliente com o id " + id));
+
+        cliente.setCpf(MaskService.maskCPF(cliente.getCpf()));
+
         return clienteMapper.toDTO(cliente);
     }
 
