@@ -3,11 +3,11 @@ package com.rodrigo.cadastrocliente.mapper;
 import com.rodrigo.cadastrocliente.models.Cliente;
 import org.mapstruct.*;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class clientemapperimpl implements ClienteMapper {
+@Mapper()
+public abstract class experimentalist implements ClienteMapper {
 
     @AfterMapping
-    protected void vincularCliente(@MappingTarget Cliente cliente) {
+    public void vincularCliente(@MappingTarget Cliente cliente) {
         if (cliente.getTelefones() != null) {
             cliente.getTelefones().forEach(t -> t.setCliente(cliente));
         }

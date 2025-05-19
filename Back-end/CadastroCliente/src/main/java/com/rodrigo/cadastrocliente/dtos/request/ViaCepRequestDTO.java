@@ -1,24 +1,31 @@
 package com.rodrigo.cadastrocliente.dtos.request;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class EnderecoRequestDTO {
+public class ViaCepRequestDTO {
 
     @NotBlank
     private String cep;
 
+    @NotBlank
     private String logradouro;
 
+    @NotBlank
     private String bairro;
 
-    private String cidade;
+    @NotBlank
+    private String localidade;
 
+    @NotBlank
     private String uf;
 
     private String complemento;

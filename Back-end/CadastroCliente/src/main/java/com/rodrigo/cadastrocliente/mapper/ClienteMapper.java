@@ -12,8 +12,7 @@ import com.rodrigo.cadastrocliente.models.Cliente;
 import com.rodrigo.cadastrocliente.models.Email;
 import com.rodrigo.cadastrocliente.models.Endereco;
 import com.rodrigo.cadastrocliente.models.Telefone;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -40,5 +39,12 @@ public interface ClienteMapper {
 
     List<Endereco> toEntityEnderecos(List<EnderecoRequestDTO> dtos);
     List<EnderecoResponseDTO> toDTOsEnderecos(List<Endereco> entities);
+
+    @AfterMapping
+    default void vincularClienteNasEntidadesFilhas(ClienteRequestDTO dto, @MappingTarget Cliente cliente) {
+        cliente.getEmails().forEach(email -> email.setCliente(cliente));
+        cliente.getTelefones().forEach(telefone -> telefone.setCliente(cliente));
+        cliente.getEnderecos().forEach(endereco -> endereco.setCliente(cliente));
+    }
 
 }

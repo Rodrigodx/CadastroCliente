@@ -1,9 +1,12 @@
 package com.rodrigo.cadastrocliente.services;
 
 import com.rodrigo.cadastrocliente.dtos.request.ClienteRequestDTO;
+import com.rodrigo.cadastrocliente.dtos.request.EnderecoRequestDTO;
 import com.rodrigo.cadastrocliente.dtos.response.ClienteResponseDTO;
+import com.rodrigo.cadastrocliente.dtos.response.EnderecoResponseDTO;
 import com.rodrigo.cadastrocliente.mapper.ClienteMapper;
 import com.rodrigo.cadastrocliente.models.Cliente;
+import com.rodrigo.cadastrocliente.models.Endereco;
 import com.rodrigo.cadastrocliente.repositories.ClienteRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +19,12 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
     private final ClienteMapper clienteMapper;
+    private final ViaCepService viaCepService;
 
-    public ClienteService(ClienteRepository clienteRepository, ClienteMapper clienteMapper) {
+    public ClienteService(ClienteRepository clienteRepository, ClienteMapper clienteMapper, ViaCepService viaCepService) {
         this.clienteRepository = clienteRepository;
         this.clienteMapper = clienteMapper;
+        this.viaCepService = viaCepService;
     }
 
     public List<ClienteResponseDTO> buscarTodosClientes(){
@@ -37,6 +42,24 @@ public class ClienteService {
 
     public ClienteResponseDTO cadastrarCliente(@Valid ClienteRequestDTO clienteRequestDTO){
         Cliente cliente = clienteMapper.toEntity(clienteRequestDTO);
+        List<Endereco> enderecos = clienteRequestDTO.getEnderecos().stream()
+                .map(dto -> {
+                    Endereco viaCep = ViaCepService.buscarEnderecoPorCep(dto.getCep());
+
+                    Endereco endereco = new Endereco();
+                    endereco.setCep(dto.getCep());
+                    endereco.setLogradouro(viaCep.getLogradouro());
+                    endereco.setBairro(viaCep.getBairro());
+                    endereco.setCidade(viaCep.getCidade());
+                    endereco.setUf(viaCep.getUf());
+                    endereco.setCliente(cliente); // MUITO IMPORTANTE
+
+                    return endereco;
+                })
+                .collect(Collectors.toList());
+
+        cliente.setEnderecos(enderecos);
+
         Cliente salvar = clienteRepository.save(cliente);
         return clienteMapper.toDTO(salvar);
     }
