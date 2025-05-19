@@ -27,7 +27,21 @@ public class ClienteService {
         return clienteRepository.findAll()
                 .stream()
                 .map(clienteMapper::toDTO)
-                .peek(dto -> dto.setCpf(MaskService.maskCPF(dto.getCpf())))
+                .peek(dto -> {
+                    dto.setCpf(MaskService.maskCPF(dto.getCpf()));
+
+                    if (dto.getEnderecos() != null) {
+                        dto.getEnderecos().forEach(endereco ->
+                                endereco.setCep(MaskService.maskCEP(endereco.getCep()))
+                        );
+                    }
+
+                    if (dto.getTelefones() != null) {
+                        dto.getTelefones().forEach(telefone ->
+                                telefone.setNumero(MaskService.maskTelefone(telefone.getNumero()))
+                        );
+                    }
+                })
                 .collect(Collectors.toList());
     }
 
@@ -36,12 +50,23 @@ public class ClienteService {
                 .orElseThrow(() -> new RuntimeException("Não encontrado um cliente com o id " + id));
 
         cliente.setCpf(MaskService.maskCPF(cliente.getCpf()));
+        if (cliente.getEnderecos() != null) {
+            cliente.getEnderecos().forEach(endereco ->
+                    endereco.setCep(MaskService.maskCEP(endereco.getCep()))
+            );
+        }
 
+        if (cliente.getTelefones() != null) {
+            cliente.getTelefones().forEach(telefone ->
+                    telefone.setNumero(MaskService.maskTelefone(telefone.getNumero()))
+            );
+        }
         return clienteMapper.toDTO(cliente);
     }
 
     public ClienteResponseDTO cadastrarCliente(@Valid ClienteRequestDTO clienteRequestDTO){
         Cliente cliente = clienteMapper.toEntity(clienteRequestDTO);
+
         List<Endereco> enderecos = clienteRequestDTO.getEnderecos().stream()
                 .map(dto -> {
                     Endereco viaCep = ViaCepService.buscarEnderecoPorCep(dto.getCep());
@@ -61,6 +86,21 @@ public class ClienteService {
         cliente.setEnderecos(enderecos);
 
         Cliente salvar = clienteRepository.save(cliente);
+        
+        salvar.setCpf(MaskService.maskCPF(salvar.getCpf()));
+
+        if (salvar.getEnderecos() != null) {
+            salvar.getEnderecos().forEach(endereco ->
+                    endereco.setCep(MaskService.maskCEP(endereco.getCep()))
+            );
+        }
+
+        if (salvar.getTelefones() != null) {
+            salvar.getTelefones().forEach(telefone ->
+                    telefone.setNumero(MaskService.maskTelefone(telefone.getNumero()))
+            );
+        }
+
         return clienteMapper.toDTO(salvar);
     }
 
@@ -70,6 +110,20 @@ public class ClienteService {
 
         clienteMapper.toEntity(clienteRequestDTO);
         Cliente salvar = clienteRepository.save(cliente);
+
+        salvar.setCpf(MaskService.maskCPF(salvar.getCpf()));
+
+        if (salvar.getEnderecos() != null) {
+            salvar.getEnderecos().forEach(endereco ->
+                    endereco.setCep(MaskService.maskCEP(endereco.getCep()))
+            );
+        }
+
+        if (salvar.getTelefones() != null) {
+            salvar.getTelefones().forEach(telefone ->
+                    telefone.setNumero(MaskService.maskTelefone(telefone.getNumero()))
+            );
+        }
 
         return clienteMapper.toDTO(salvar);
 
