@@ -41,7 +41,6 @@ public class UsuarioController {
 
     @PostMapping(path = USER_LOGIN)
     public ResponseEntity<?> userLogin(@RequestBody LoginRequest loginRequest) throws Exception {
-        System.out.println("PAssou aqui");
         this.usuarioService.autenticarUsuario(loginRequest.getLogin(),  loginRequest.getSenha());
 
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(loginRequest.getLogin());

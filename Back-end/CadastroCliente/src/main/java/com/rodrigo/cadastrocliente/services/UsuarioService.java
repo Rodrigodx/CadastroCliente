@@ -43,7 +43,6 @@ public class UsuarioService implements UserDetailsService {
         if (!senhaCorreta) {
             throw new RuntimeException("Credenciais inválidas");
         }
-        System.out.println("passou na verificação");
     }
 
     @Override
