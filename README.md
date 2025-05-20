@@ -32,6 +32,7 @@
     - Maven
     - PostgreSQL
     - IDE como Intellij IDEA ou outra de sua preferência
+    - Postman
   
   * Passos para executar o projeto localmente:
 
