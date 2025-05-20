@@ -35,15 +35,6 @@ public class Usuario implements UserDetails {
     @Temporal(TemporalType.DATE)
     private Date dataAtualSenha;
 
-    @OneToOne
-    @JoinColumn(
-            name = "cliente_id",
-            referencedColumnName = "id",
-            nullable = true,
-            foreignKey = @ForeignKey(name = "cliente_fk")
-    )
-    private Cliente cliente;
-
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
 
