@@ -1,5 +1,6 @@
 package com.rodrigo.cadastrocliente.security;
 
+import com.rodrigo.cadastrocliente.enums.RoleEnum;
 import com.rodrigo.cadastrocliente.services.ImplUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,13 +35,14 @@ public class WebConfigSecurity {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
+        return http.cors().and().csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers("/api/registration", "/api/login", "/api/cliente/").permitAll()
+                        .antMatchers("/api/registration", "/api/login").permitAll()
+                        .antMatchers(HttpMethod.GET,"/api/cliente/").permitAll()
                         .antMatchers(HttpMethod.POST, "/api/cliente").hasRole("ADMIN")
                         .antMatchers(HttpMethod.PUT, "/api/cliente").hasRole("ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/api/cliente").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.GET, "/api/cliente").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Component
@@ -55,6 +56,9 @@ public class JWTTokenAutenticacaoService {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", userDetails.getAuthorities().stream()
+                .map(auth -> auth.getAuthority())
+                .collect(Collectors.toList()));
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -73,23 +77,4 @@ public class JWTTokenAutenticacaoService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-
-    private void liberarCors(HttpServletResponse response) {
-
-        if (response.getHeader("Access-Control-Allow-Origin") == null) {
-            response.addHeader("Access-Control-Allow-Origin", "*");
-        }
-
-        if (response.getHeader("Access-Control-Allow-Headers") == null) {
-            response.addHeader("Access-Control-Allow-Headers", "*");
-        }
-
-        if (response.getHeader("Access-Control-Request-Headers") == null) {
-            response.addHeader("Access-Control-Request-Headers", "*");
-        }
-
-        if (response.getHeader("Access-Control-Allow-Methods") == null) {
-            response.addHeader("Access-Control-Allow-Methods", "*");
-        }
-    }
 }

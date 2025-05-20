@@ -27,7 +27,7 @@ public class UsuarioInitializer implements CommandLineRunner {
             admin.setRole(RoleEnum.ROLE_ADMIN);
 
             Usuario usuario = new Usuario();
-            usuario.setLogin("padrão");
+            usuario.setLogin("user");
             usuario.setSenha(new BCryptPasswordEncoder().encode("123qwe123"));
             usuario.setDataAtualSenha(new Date());
             usuario.setRole(RoleEnum.ROLE_USUARIO);
