@@ -41,7 +41,7 @@ public class ClienteController {
         return clienteService.cadastrarCliente(clienteRequestDTO);
     }
 
-    @PostMapping(value = "/{id}")
+    @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ClienteResponseDTO updateCliente(@Valid @RequestBody ClienteRequestDTO clienteRequestDTO, @PathVariable Integer id){
         return clienteService.atualizarCliente(id, clienteRequestDTO);
